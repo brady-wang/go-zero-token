@@ -1,0 +1,52 @@
+type (
+	UserInfoReq {
+		Id string `form:"id"`
+	}
+
+	UserInfoResp {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	}
+)
+
+type (
+	ErrJsonResult {
+		Code int    `json:"code"`
+		Msg  string `json:"msg"`
+	}
+	SuccessJsonResult {
+		Code int         `json:"code"`
+		Msg  string      `json:"msg"`
+		Data interface{} `json:"data"`
+	}
+)
+
+type (
+	LoginReq {
+		Username string `form:"username"`
+		Password string `form:"password"`
+	}
+
+	LoginReply {
+		Id           int64  `json:"id"`
+		Name         string `json:"name"`
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpore"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+service admin-api {
+	@handler Login
+	post /user/login (LoginReq) returns (LoginReply)
+}
+
+@server(
+	//jwt: Auth
+	middleware: TokenMiddle // 路由中间件声明
+)
+
+service admin-api {
+	@handler UserInfoHandler
+	post /userInfo (UserInfoReq) returns (UserInfoResp)
+}

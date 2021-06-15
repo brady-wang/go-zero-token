@@ -1,0 +1,12 @@
+Name: admin-api
+Host: 0.0.0.0
+Port: 8888
+
+Auth:
+  AccessSecret: adb7cdb0-0e5b-47eb-b383-d5323ce5da0f
+  AccessExpire: 604800
+
+
+Account:
+  UserName: admin
+  Password: password
